@@ -1,0 +1,25 @@
+{
+  "markets": "Markets",
+  "marketsEbay": "eBay",
+  "marketsEbayAuthenticationTokenUpdate": "Update token",
+  "authenticateAccount": "Authenticate new account",
+  "authentication": "Authentication",
+  "authenticate": "Authenticate",
+  "environment": "Environment",
+  "account": "Account",
+  "actions": "Actions",
+  "update": "Update",
+  "delete": "Delete",
+  "expiration": "Expiration",
+
+  "status": "Status",
+  "active": "Active",
+  "inactive": "Inactive",
+  "production": "Production",
+  "sandbox": "Sandbox",
+
+  "errorLoadCredentials": "Credential not loaded.",
+  "errorDeleteCredentials": "Credential not deleted.",
+  "errorAuthentication": "Authentication not successfully.",
+  "errorRefreshToken": "Token not refreshed."
+}

@@ -1,0 +1,27 @@
+{
+  "markets": "Märkte",
+  "marketsEbay": "eBay",
+  "marketsEbayAuthenticationTokenUpdate": "Token aktualisieren",
+  "authenticateAccount": "Neues Konto authentifizieren",
+  "authentication": "Authentifizierung",
+  "authenticate": "Authentifizieren",
+  "environment": "Umgebung",
+  "account": "Konto",
+  "update": "Aktualisieren",
+  "delete": "Löschen",
+  "actions": "Aktionen",
+  "expiration": "Ablaufdatum",
+  "status": "Status",
+  "active": "Aktiv",
+  "inactive": "Inaktiv",
+  "production": "Production",
+  "sandbox": "Sandbox",
+
+  "errorLoadCredentials": "Konten nicht geladen.",
+  "errorDeleteCredentials": "Konto nicht gelöscht.",
+  "errorAuthentication": "Authentifizierung nicht erfolgreich.",
+  "errorRefreshToken": "Token nicht erneuert.",
+
+  "successDeleteCredentials": "Konto gelöscht.",
+  "successRefreshToken": "Token erneuert."
+}
