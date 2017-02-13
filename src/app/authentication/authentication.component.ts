@@ -118,7 +118,7 @@ export class AuthenticationComponent extends Locale implements OnInit
 
     private refreshToken(item:CredentialsData):void
     {
-        this.setLoading(true);
+        this.ebayAuthenticationComponent.callLoadingEvent(true);
 
         this.authenticationService.refreshToken(item.id).subscribe(
             response => {
@@ -137,7 +137,7 @@ export class AuthenticationComponent extends Locale implements OnInit
 
     private deleteCredential(item:CredentialsData):void
     {
-        this.setLoading(true);
+        this.ebayAuthenticationComponent.callLoadingEvent(true);
 
         this.credentialService.deleteCredential(item.id).subscribe(
             response => {
