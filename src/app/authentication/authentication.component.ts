@@ -91,18 +91,20 @@ export class AuthenticationComponent extends Locale implements OnInit
 
         this.authenticationService.getLoginUrl(this.environment).subscribe(
             response => {
-                this.setLoading(false);
-
                 var popup = window.open(
                     response.loginUrl,
                     'eBay Login',
                     'toolbar=no, location=#, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no, width=600, height=600, top=0, left=50');
 
                 var pollTimer = window.setInterval(() => {
-                    if (popup.closed !== false) {
+                    if (popup.closed !== false)
+                    {
                         window.clearInterval(pollTimer);
 
-                        this.reload();
+                        this.initCredentialTable();
+
+                        this.ebayAuthenticationComponent.callStatusEvent(this.localization.translate('successAuthentication'), 'success');
+                        this.setLoading(false);
                     }
                 }, 200);
             },
@@ -120,11 +122,10 @@ export class AuthenticationComponent extends Locale implements OnInit
 
         this.authenticationService.refreshToken(item.id).subscribe(
             response => {
-                this.setLoading(false);
-
-                item.data.expiration = <CredentialsData> response.data.refreshTokenExpiration;
+                this.initCredentialTable();
 
                 this.ebayAuthenticationComponent.callStatusEvent(this.localization.translate('successRefreshToken'), 'success');
+                this.setLoading(false);
             },
             error => {
                 this.ebayAuthenticationComponent.callStatusEvent(this.localization.translate('errorRefreshToken') + ': ' + error.statusText, 'danger');
@@ -140,8 +141,6 @@ export class AuthenticationComponent extends Locale implements OnInit
 
         this.credentialService.deleteCredential(item.id).subscribe(
             response => {
-                this.setLoading(false);
-
                 if(response['affectedRows'] > 0)
                 {
                     let index = this.credentialList.indexOf(item);
@@ -153,6 +152,8 @@ export class AuthenticationComponent extends Locale implements OnInit
                 {
                     this.ebayAuthenticationComponent.callStatusEvent(this.localization.translate('errorDeleteCredentials'), 'info');
                 }
+
+                this.setLoading(false);
             },
             error => {
                 this.ebayAuthenticationComponent.callStatusEvent(this.localization.translate('errorDeleteCredentials') + ': ' + error.statusText, 'danger');

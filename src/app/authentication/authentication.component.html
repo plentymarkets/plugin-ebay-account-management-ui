@@ -25,6 +25,7 @@
                                                 inputCaption="{{'update' | translate:lang}}"
                                                 inputIcon="icon-refresh"
                                                 [inputIsSmall]="true"
+                                                [inputIsDisabled]="isLoading"
                                                 (outputClicked)="refreshToken(row)">
                                         </terra-button>
                                     </td>
@@ -56,6 +57,7 @@
                     <terra-button
                             inputCaption="{{'authenticateAccount' | translate:lang}}"
                             inputIcon="icon-visibility_private"
+                            [inputIsDisabled]="isLoading"
                             (outputClicked)="openAuthenticationPopup()">
                     </terra-button>
                 </div>
