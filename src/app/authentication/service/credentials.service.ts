@@ -9,8 +9,7 @@ export class CredentialsService extends TerraBaseService
 {
     constructor(loadingBarService:TerraLoadingBarService, http:Http)
     {
-        super(loadingBarService, http, 'http://master.plentymarkets.com/rest/markets/credentials/');
-        // super(loadingBarService, http, '/rest/markets/credentials/');
+        super(loadingBarService, http, '/rest/markets/credentials/');
     }
 
     public search():Observable<CredentialsData>

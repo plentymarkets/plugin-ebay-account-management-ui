@@ -8,8 +8,7 @@ export class AuthenticationService extends TerraBaseService
 {
     constructor(loadingBarService:TerraLoadingBarService, http:Http)
     {
-        super(loadingBarService, http, 'http://master.plentymarkets.com/rest/markets/ebay/auth/');
-        // super(loadingBarService, http, '/rest/markets/ebay/auth/');
+        super(loadingBarService, http, '/rest/markets/ebay/auth/');
     }
 
     public getLoginUrl(environment:string):Observable<any>
