@@ -5,4 +5,5 @@ export class CredentialsData
     status:string;
     data:any;
     market:string;
+    createdAt:string;
 }

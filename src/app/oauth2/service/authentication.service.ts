@@ -14,19 +14,20 @@ export class AuthenticationService extends TerraBaseService
     public getLoginUrl(environment:string):Observable<any>
     {
         let url:string;
-        let isSandbox:number;
 
         this.setAuthorization();
 
-        isSandbox = environment == 'sandbox' ? 1 : 0;
-        url = this.url + 'login?sandbox=' + isSandbox;
+        url = this.url + 'login?sandbox=' + this.isSandbox(environment);
+        // TODO: delete
+        this.headers.append('Authorization', 'Bearer sgMMWSi1d5g1Ymh7NtYNVeF6hpBrUKsXlEhZGlEC');
 
         return this.mapRequest(
             this.http.get(url, {headers: this.headers})
         );
     }
 
-    public refreshToken(credentialsId:number):Observable<any>
+    // TODO
+    public refreshToken(credentialsId:number, environment:string):Observable<any>
     {
         let url:string;
 
@@ -37,5 +38,10 @@ export class AuthenticationService extends TerraBaseService
         return this.mapRequest(
             this.http.get(url, {headers: this.headers})
         );
+    }
+
+    private isSandbox(environment:string):boolean
+    {
+        return environment == 'sandbox';
     }
 }

@@ -2,40 +2,38 @@ import { Component, ChangeDetectionStrategy, ViewContainerRef, ViewChild } from 
 import { Locale } from 'angular2localization';
 import { LocaleService } from "angular2localization/angular2localization";
 import { LocalizationService } from "angular2localization/angular2localization";
-import { ComponentsHelper } from 'ng2-bootstrap';
 
 @Component({
-    selector: 'ebay-authentication',
-    template: require('./ebay-authentication.component.html'),
-    styles: [require('./ebay-authentication.component.scss').toString()],
+    selector: 'ebay-oauth2-app',
+    template: require('./ebay-oauth2-app.component.html'),
+    styles: [require('./ebay-oauth2-app.component.scss').toString()],
     changeDetection: ChangeDetectionStrategy.Default
 })
 
-export class EbayAuthenticationComponent extends Locale {
+export class EbayOAuth2AppComponent extends Locale {
 
     private _viewContainerReference:ViewContainerRef;
 
     constructor(locale:LocaleService,
                 localization:LocalizationService,
                 private _viewContainerRef:ViewContainerRef,
-                private _componentsHelper:ComponentsHelper)
+    )
     {
         super(locale, localization);
 
         this._viewContainerReference = _viewContainerRef;
-        this._componentsHelper.setRootViewContainerRef(this._viewContainerRef);
 
         // definitions for i18n
         if(process.env.ENV === 'production')
         {
-            this.localization.translationProvider('locale_');
+            this.localization.translationProvider('assets/lang/locale_');
         }
         else
         {
             this.localization.translationProvider('src/app/assets/lang/locale_');
         }
 
-        // this.locale.addLanguage('de');
+        this.locale.addLanguage('de');
         this.locale.addLanguage('en');
         this.locale.definePreferredLocale('en', 'EN', 30); //default language is en
 

@@ -7,11 +7,10 @@ import { LocaleModule } from "angular2localization/angular2localization";
 import { LocalizationModule } from "angular2localization/angular2localization";
 import { LocaleService } from "angular2localization/angular2localization";
 import { LocalizationService } from "angular2localization/angular2localization";
-import { ModalModule, ComponentsHelper } from 'ng2-bootstrap/ng2-bootstrap';
-import { EbayAuthenticationComponent } from "./ebay-authentication.component.ts";
-import { AuthenticationComponent } from "./authentication/authentication.component";
-import { AuthenticationService } from "./authentication/service/authentication.service";
-import { CredentialsService } from "./authentication/service/credentials.service";
+import { EbayOAuth2AppComponent } from "./ebay-oauth2-app.component";
+import { OAuth2Component } from "./oauth2/oauth2.component";
+import { AuthenticationService } from "./oauth2/service/authentication.service";
+import { CredentialsService } from "./oauth2/service/credentials.service";
 
 @NgModule({
     imports: [
@@ -23,8 +22,8 @@ import { CredentialsService } from "./authentication/service/credentials.service
         TerraComponentsModule.forRoot()
     ],
     declarations: [
-        EbayAuthenticationComponent,
-        AuthenticationComponent
+        EbayOAuth2AppComponent,
+        OAuth2Component
     ],
 
     providers: [
@@ -32,13 +31,13 @@ import { CredentialsService } from "./authentication/service/credentials.service
         CredentialsService,
         LocaleService,
         LocalizationService,
-        {provide: ComponentsHelper, useClass: ComponentsHelper}
     ],
 
     bootstrap: [
-        EbayAuthenticationComponent
+        EbayOAuth2AppComponent
     ]
 })
 
-export class EbayAuthenticationModule {
+export class EbayOAuth2AppModule
+{
 }

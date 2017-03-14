@@ -19,13 +19,28 @@ export class CredentialsService extends TerraBaseService
         this.setAuthorization();
 
         url = this.url + '?market=ebay';
+        // TODO: delete
+        this.headers.append('Authorization', 'Bearer sgMMWSi1d5g1Ymh7NtYNVeF6hpBrUKsXlEhZGlEC');
 
         return this.mapRequest(
             this.http.get(url, {headers: this.headers, body: ''})
         );
     }
 
-    public deleteCredential(id:number):Observable<CredentialsData>
+    public save(credentials:CredentialsData):Observable<CredentialsData>
+    {
+        let url: string;
+
+        this.setAuthorization();
+
+        url = this.url + credentials.id + '?data=' + credentials;
+
+        return this.mapRequest(
+            this.http.put(url, {headers: this.headers, body: ''})
+        );
+    }
+
+    public remove(id:number):Observable<CredentialsData>
     {
         let url:string;
 

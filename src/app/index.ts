@@ -1,2 +1,2 @@
-export * from './ebay-authentication.component';
-export * from './ebay-authentication.module';
+export * from './ebay-oauth2-app.component';
+export * from './ebay-oauth2-app.module';

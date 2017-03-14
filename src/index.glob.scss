@@ -1,19 +1,8 @@
+@import '../node_modules/@plentymarkets/terra-components/app/assets/styles/icons.glob.scss';
+@import '../node_modules/@plentymarkets/terra-components/index.glob.scss';
+
 @import '_spinner.scss';
 
-.etsy-toolbar {
-  .breadcrumbs {
-    float: left;
-    line-height: 30px;
-  }
-
-  .btn-toolbar {
-    height: 47px;
-  }
-
-  .pending-icon {
-    float: right;
-  }
-}
 
 body {
   font-family: "plenty", Helvetica, Arial, sans-serif !important;
@@ -30,6 +19,7 @@ body {
   border: 0 !important;
   padding: 0 !important;
   direction: ltr !important;
+  overflow: visible !important;
 }
 
 .loading {
@@ -115,10 +105,15 @@ body {
   }
 }
 
-.login-wrapper {
-  background: url('./images/plenty_login_background.jpg') no-repeat center center fixed;
+.login-wrapper
+{
+  background: url('app/assets/images/plenty_login_background.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+.input-unit-v1 label {
+  z-index:99;
 }
