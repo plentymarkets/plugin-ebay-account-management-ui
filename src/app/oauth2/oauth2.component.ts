@@ -1,4 +1,4 @@
-import {Component, OnInit, forwardRef, Inject, ViewChild} from '@angular/core';
+import { Component, OnInit, forwardRef, Inject, ViewChild } from '@angular/core';
 import { Locale } from 'angular2localization/angular2localization';
 import { LocaleService} from 'angular2localization/angular2localization';
 import { LocalizationService} from 'angular2localization/angular2localization';
@@ -6,6 +6,10 @@ import { CredentialsData } from './data/credentials-data';
 import { CredentialsService } from './service/credentials.service';
 import { AuthenticationService } from './service/authentication.service';
 import { EbayOAuth2AppComponent } from '../ebay-oauth2-app.component';
+import {
+    TerraOverlayComponent,
+    TerraOverlayButtonInterface
+} from '@plentymarkets/terra-components/index';
 
 @Component({
     selector: 'oauth2',
@@ -15,9 +19,14 @@ import { EbayOAuth2AppComponent } from '../ebay-oauth2-app.component';
 
 export class OAuth2Component extends Locale implements OnInit
 {
+    @ViewChild('removeCredentialsConfirmationOverlay') public removeCredentialsConfirmationOverlay:TerraOverlayComponent;
+
+    private _cancelRemoveCredentialsButtonInterface:TerraOverlayButtonInterface;
+    private _removeCredentialsButtonInterface:TerraOverlayButtonInterface;
+
     private isLoading:boolean = true;
-    private isAccountInputActive:boolean = true;
     private credentialsList:Array<CredentialsData>;
+    private credentialsToBeDeleted:CredentialsData = null;
 
     constructor(
         private credentialService:CredentialsService,
@@ -34,6 +43,21 @@ export class OAuth2Component extends Locale implements OnInit
 
     ngOnInit(): void
     {
+        this.cancelRemoveCredentialsButtonInterface = {
+            icon: 'icon-cancel',
+            caption: 'Abbrechen', //this.localization.translate('cancel'),
+            isDisabled: false,
+            clickFunction: () => this.hideRemoveCredentialsOverlay()
+        };
+
+        this.removeCredentialsButtonInterface = {
+            icon: 'icon-delete',
+            caption: 'Löschen', //this.localization.translate('remove'),
+            isDisabled: false,
+            clickFunction: () => this.removeCredentials(this.credentialsToBeDeleted)
+        };
+
+
         this.setLoading(false);
     }
 
@@ -151,6 +175,8 @@ export class OAuth2Component extends Locale implements OnInit
     {
         this.setLoading(true);
 
+        this.hideRemoveCredentialsOverlay();
+
         this.credentialService.remove(credentials.id).subscribe(
             response => {
                 if(response['affectedRows'] > 0)
@@ -172,6 +198,8 @@ export class OAuth2Component extends Locale implements OnInit
                 this.setLoading(false);
             }
         );
+
+        this.credentialsToBeDeleted = null;
     }
 
     private toggleEditMode(id:number)
@@ -185,5 +213,38 @@ export class OAuth2Component extends Locale implements OnInit
     private toggleHidden(element:any)
     {
         element.hidden = !element.hidden;
+    }
+
+
+
+    public get cancelRemoveCredentialsButtonInterface():TerraOverlayButtonInterface
+    {
+        return this._cancelRemoveCredentialsButtonInterface;
+    }
+
+    public set cancelRemoveCredentialsButtonInterface(value:TerraOverlayButtonInterface)
+    {
+        this._cancelRemoveCredentialsButtonInterface = value;
+    }
+
+    public get removeCredentialsButtonInterface():TerraOverlayButtonInterface
+    {
+        return this._removeCredentialsButtonInterface;
+    }
+
+    public set removeCredentialsButtonInterface(value:TerraOverlayButtonInterface)
+    {
+        this._removeCredentialsButtonInterface = value;
+    }
+
+    private showRemoveCredentialsOverlay(credentials:CredentialsData):void
+    {
+        this.credentialsToBeDeleted = credentials;
+        this.removeCredentialsConfirmationOverlay.showOverlay();
+    }
+
+    private hideRemoveCredentialsOverlay():void
+    {
+        this.removeCredentialsConfirmationOverlay.hideOverlay();
     }
 }

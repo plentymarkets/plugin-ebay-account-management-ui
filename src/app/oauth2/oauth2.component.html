@@ -16,6 +16,7 @@
     </div>
 </terra-base-toolbar>
 
+<!-- CONTENT -->
 <div class="container-fluid">
     <div class="row">
         <!-- CREDENTIALS INFOBOXES -->
@@ -23,14 +24,14 @@
             <div class="col-xs-12 col-md-6 col-lg-3">
                 <terra-info-box id="infoBox{{infoBoxId}}">
                     <div body>
-                        <div id="textInput{{infoBoxId}}" [hidden]="isAccountInputActive">
+                        <div id="textInput{{infoBoxId}}" [hidden]="true">
                             <terra-text-input
                                     inputName="{{'account' | translate:lang}}"
                                     [(ngModel)]="credentials.data.userId">
                             </terra-text-input>
                         </div>
 
-                        <span id="label{{infoBoxId}}" [hidden]="!isAccountInputActive">
+                        <span id="label{{infoBoxId}}" [hidden]="false">
                             <b>{{'account' | translate:lang}}:</b> {{credentials.data.userId}}<br>
                         </span>
 
@@ -45,7 +46,7 @@
                                 inputIcon="icon-edit icon_dist_top"
                                 inputTooltipText="{{'edit' | translate:lang}}"
                                 inputTooltipPlacement="bottom"
-                                [hidden]="!isAccountInputActive"
+                                [hidden]="false"
                                 (outputClicked)="toggleEditMode(infoBoxId)">
                         </terra-button>
                         <terra-button
@@ -53,7 +54,7 @@
                                 inputIcon="icon-save icon_dist_top"
                                 inputTooltipText="{{'save' | translate:lang}}"
                                 inputTooltipPlacement="bottom"
-                                [hidden]="isAccountInputActive"
+                                [hidden]="true"
                                 (outputClicked)="saveCredentials(infoBoxId, credentials)">
                         </terra-button>
                         <terra-button
@@ -66,7 +67,7 @@
                                 inputIcon="icon-delete icon_dist_top"
                                 inputTooltipText="{{'remove' | translate:lang}}"
                                 inputTooltipPlacement="bottom"
-                                (outputClicked)="removeCredentials(credentials)">
+                                (outputClicked)="showRemoveCredentialsOverlay(credentials)">
                         </terra-button>
                     </div>
                 </terra-info-box>
@@ -74,3 +75,17 @@
         </template>
     </div>
 </div>
+
+<!-- OVERLAYS -->
+<!--inputOverlayTitle="{{'remove' | translate:lang}}"-->
+<terra-overlay
+        #removeCredentialsConfirmationOverlay
+        inputOverlayTitle="{{'removeAccount' | translate:lang}}"
+        [inputPrimaryButtonInterface]="removeCredentialsButtonInterface"
+        [inputSecondaryButtonInterface]="cancelRemoveCredentialsButtonInterface"
+        [inputIsStatic]="true"
+        [inputIsSmall]="true">
+    <div>
+        {{'removeConfirmationMessage' | translate:lang}}
+    </div>
+</terra-overlay>
