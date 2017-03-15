@@ -8,6 +8,7 @@
   "authenticateAccount": "Neues Konto authentifizieren",
   "authentication": "Authentifizierung",
   "createdAt": "Erstellungsdatum",
+  "edit": "Bearbeiten",
   "environment": "Umgebung",
   "errorAuthentication": "Authentifizierung nicht erfolgreich.",
   "errorRemoveCredentials": "Konto nicht gelöscht.",

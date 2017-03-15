@@ -8,6 +8,7 @@
   "authenticateAccount": "Authenticate new account",
   "authentication": "Authentication",
   "createdAt": "Creation date",
+  "edit": "Edit",
   "environment": "Environment",
   "errorAuthentication": "Authentication not successful.",
   "errorRemoveCredentials": "Account not deleted.",
