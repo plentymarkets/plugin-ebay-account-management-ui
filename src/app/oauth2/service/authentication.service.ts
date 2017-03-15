@@ -24,8 +24,8 @@ export class AuthenticationService extends TerraBaseService
         );
     }
 
-    private isSandbox(environment:string):boolean
+    private isSandbox(environment:string):number
     {
-        return environment == 'sandbox';
+        return environment == 'sandbox' ? 1 : 0;
     }
 }
