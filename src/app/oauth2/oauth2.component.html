@@ -21,18 +21,18 @@
         <!-- CREDENTIALS INFOBOXES -->
         <template ngFor let-credentials let-infoBoxId="index" [ngForOf]="credentialsList">
             <div class="col-xs-12 col-md-6 col-lg-3">
-                <terra-info-box #{{infoBoxId}}>
+                <terra-info-box id="infoBox{{infoBoxId}}">
                     <div body>
-                        <div [hidden]="isAccountInputActive">
+                        <div id="textInput{{infoBoxId}}" [hidden]="isAccountInputActive">
                             <terra-text-input
                                     inputName="{{'account' | translate:lang}}"
                                     [(ngModel)]="credentials.data.userId">
                             </terra-text-input>
                         </div>
 
-                        <div [hidden]="!isAccountInputActive">
+                        <span id="label{{infoBoxId}}" [hidden]="!isAccountInputActive">
                             <b>{{'account' | translate:lang}}:</b> {{credentials.data.userId}}<br>
-                        </div>
+                        </span>
 
                         <b>{{'environment' | translate:lang}}:</b> {{credentials.environment | translate:lang}}<br>
                         <b>{{'status' | translate:lang}}:</b> {{credentials.status | translate:lang}}<br>
@@ -41,18 +41,20 @@
                     </div>
                     <div buttons>
                         <terra-button
+                                id="editBtn{{infoBoxId}}"
                                 inputIcon="icon-edit icon_dist_top"
                                 inputTooltipText="{{'edit' | translate:lang}}"
                                 inputTooltipPlacement="bottom"
                                 [hidden]="!isAccountInputActive"
-                                (outputClicked)="toggleAccountInput(infoBoxId)">
+                                (outputClicked)="toggleEditMode(infoBoxId)">
                         </terra-button>
                         <terra-button
+                                id="saveBtn{{infoBoxId}}"
                                 inputIcon="icon-save icon_dist_top"
                                 inputTooltipText="{{'save' | translate:lang}}"
                                 inputTooltipPlacement="bottom"
                                 [hidden]="isAccountInputActive"
-                                (outputClicked)="saveCredentials(credentials)">
+                                (outputClicked)="saveCredentials(infoBoxId, credentials)">
                         </terra-button>
                         <terra-button
                                 inputIcon="icon-refresh icon_dist_top"

@@ -116,15 +116,23 @@ export class OAuth2Component extends Locale implements OnInit
         );
     }
 
-    private saveCredentials(credentials:CredentialsData):void
+    private saveCredentials(infoBoxId:number, credentials:CredentialsData):void
     {
         this.setLoading(true);
 
-        this.credentialService.save(credentials).subscribe(
-            response => {
-                // TODO: check success
+        let credentialsData =
+        {
+            data: {
+                userId: credentials.data.userId,
+            }
+        };
 
-                // this.toggleAccountInput();
+        this.credentialService.save(credentials.id, credentialsData).subscribe(
+            response => {
+                this.toggleEditMode(infoBoxId);
+
+                this.ebayOAuth2AppComponent.callStatusEvent(this.localization.translate('successSaveCredentials'), 'success');
+                this.setLoading(false);
             },
             error => {
                 this.ebayOAuth2AppComponent.callStatusEvent(this.localization.translate('errorSaveCredentials') + ': ' + error.statusText, 'danger');
@@ -166,11 +174,16 @@ export class OAuth2Component extends Locale implements OnInit
         );
     }
 
-    // TODO
-    private toggleAccountInput(test: any)
+    private toggleEditMode(id:number)
     {
-        
+        this.toggleHidden(document.getElementById('textInput' + id));
+        this.toggleHidden(document.getElementById('label' + id));
+        this.toggleHidden(document.getElementById('editBtn' + id));
+        this.toggleHidden(document.getElementById('saveBtn' + id));
+    }
 
-        this.isAccountInputActive = !this.isAccountInputActive;
+    private toggleHidden(element:any)
+    {
+        element.hidden = !element.hidden;
     }
 }

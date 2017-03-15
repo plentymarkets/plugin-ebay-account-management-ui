@@ -18,22 +18,6 @@ export class AuthenticationService extends TerraBaseService
         this.setAuthorization();
 
         url = this.url + 'login?sandbox=' + this.isSandbox(environment);
-        // TODO: delete
-        this.headers.append('Authorization', 'Bearer sgMMWSi1d5g1Ymh7NtYNVeF6hpBrUKsXlEhZGlEC');
-
-        return this.mapRequest(
-            this.http.get(url, {headers: this.headers})
-        );
-    }
-
-    // TODO
-    public refreshToken(credentialsId:number, environment:string):Observable<any>
-    {
-        let url:string;
-
-        this.setAuthorization();
-
-        url = this.url + 'refresh-token?credentialsId=' + credentialsId;
 
         return this.mapRequest(
             this.http.get(url, {headers: this.headers})
