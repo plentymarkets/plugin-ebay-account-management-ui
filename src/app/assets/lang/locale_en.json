@@ -9,8 +9,8 @@
   "authentication": "Authentication",
   "createdAt": "Creation date",
   "environment": "Environment",
-  "errorAuthentication": "Authentication not successfully.",
-  "errorRemoveCredentials": "Account not removed.",
+  "errorAuthentication": "Authentication not successful.",
+  "errorRemoveCredentials": "Account not deleted.",
   "errorLoadCredentials": "Account not loaded.",
   "errorRefreshToken": "Token not refreshed.",
   "errorSaveCredentials": "Account not saved.",
@@ -24,7 +24,7 @@
   "save": "Save";
   "status": "Status",
   "successAuthentication": "Account authenticated.",
-  "successRemovedCredentials": "Account removed.",
+  "successRemovedCredentials": "Account deleted.",
   "successRefreshToken": "Token refreshed.",
   "successSaveCredentials": "Account saved.",
 }
