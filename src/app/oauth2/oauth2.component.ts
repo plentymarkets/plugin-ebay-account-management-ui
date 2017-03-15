@@ -56,9 +56,6 @@ export class OAuth2Component extends Locale implements OnInit
             isDisabled: false,
             clickFunction: () => this.removeCredentials(this.credentialsToBeDeleted)
         };
-
-
-        this.setLoading(false);
     }
 
     private setLoading(isLoading:boolean)
@@ -105,8 +102,6 @@ export class OAuth2Component extends Locale implements OnInit
                 this.setLoading(false);
             }
         );
-
-        this.ebayOAuth2AppComponent.isLoading = false;
     }
 
     private openAuthenticationPopup(environment:string = 'production')

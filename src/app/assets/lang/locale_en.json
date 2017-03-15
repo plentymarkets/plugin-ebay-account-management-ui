@@ -30,5 +30,5 @@
   "successAuthentication": "Account authenticated.",
   "successRemovedCredentials": "Account deleted.",
   "successRefreshToken": "Token refreshed.",
-  "successSaveCredentials": "Account saved.",
+  "successSaveCredentials": "Account saved."
 }
