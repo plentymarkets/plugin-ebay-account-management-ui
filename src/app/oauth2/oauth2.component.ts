@@ -10,6 +10,7 @@ import {
     TerraOverlayComponent,
     TerraOverlayButtonInterface
 } from '@plentymarkets/terra-components/index';
+import DateTimeFormat = Intl.DateTimeFormat;
 
 @Component({
     selector: 'oauth2',
@@ -140,14 +141,7 @@ export class OAuth2Component extends Locale implements OnInit
     {
         this.setLoading(true);
 
-        let credentialsData =
-        {
-            data: {
-                userId: credentials.data.userId,
-            }
-        };
-
-        this.credentialService.save(credentials.id, credentialsData).subscribe(
+        this.credentialService.save(credentials.id, credentials).subscribe(
             response => {
                 this.toggleEditMode(infoBoxId);
 
@@ -195,6 +189,7 @@ export class OAuth2Component extends Locale implements OnInit
             }
         );
 
+        this.credentialsUserIdToBeDeleted = '';
         this.credentialsToBeDeleted = null;
     }
 

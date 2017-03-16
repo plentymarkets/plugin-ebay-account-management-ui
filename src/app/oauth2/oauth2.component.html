@@ -38,7 +38,7 @@
                         <b>{{'environment' | translate:lang}}:</b> {{credentials.environment | translate:lang}}<br>
                         <b>{{'status' | translate:lang}}:</b> {{credentials.status | translate:lang}}<br>
                         <b>{{'expiration' | translate:lang}}:</b> {{credentials.data.refreshTokenExpiration}}<br>
-                        <b>{{'createdAt' | translate:lang}}:</b> {{credentials.createdAt}}
+                        <b>{{'createdAt' | translate:lang}}:</b> {{credentials.createdAt | date: 'yyyy-mm-dd H:mm:ss'}}
                     </div>
                     <div buttons>
                         <terra-button
@@ -77,7 +77,6 @@
 </div>
 
 <!-- OVERLAYS -->
-<!--inputOverlayTitle="{{'remove' | translate:lang}}"-->
 <terra-overlay
         #removeCredentialsConfirmationOverlay
         inputOverlayTitle="{{'removeAccount' | translate:lang}}"
