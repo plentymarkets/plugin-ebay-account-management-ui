@@ -27,6 +27,7 @@ export class OAuth2Component extends Locale implements OnInit
     private isLoading:boolean = true;
     private credentialsList:Array<CredentialsData>;
     private credentialsToBeDeleted:CredentialsData = null;
+    private credentialsUserIdToBeDeleted:string;
 
     constructor(
         private credentialService:CredentialsService,
@@ -235,6 +236,7 @@ export class OAuth2Component extends Locale implements OnInit
     private showRemoveCredentialsOverlay(credentials:CredentialsData):void
     {
         this.credentialsToBeDeleted = credentials;
+        this.credentialsUserIdToBeDeleted = credentials.data.userId;
         this.removeCredentialsConfirmationOverlay.showOverlay();
     }
 
