@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { TranslationModule } from 'angular-l10n';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { TerraComponentsModule } from '@plentymarkets/terra-components/app/';
-import { LocaleModule } from "angular2localization/angular2localization";
-import { LocalizationModule } from "angular2localization/angular2localization";
-import { LocaleService } from "angular2localization/angular2localization";
-import { LocalizationService } from "angular2localization/angular2localization";
 import { EbayOAuth2AppComponent } from "./ebay-oauth2-app.component";
 import { OAuth2Component } from "./oauth2/oauth2.component";
 import { AuthenticationService } from "./oauth2/service/authentication.service";
@@ -17,8 +14,7 @@ import { CredentialsService } from "./oauth2/service/credentials.service";
         BrowserModule,
         HttpModule,
         FormsModule,
-        LocaleModule,
-        LocalizationModule,
+        TranslationModule.forRoot(),
         TerraComponentsModule.forRoot()
     ],
     declarations: [
@@ -28,9 +24,7 @@ import { CredentialsService } from "./oauth2/service/credentials.service";
 
     providers: [
         AuthenticationService,
-        CredentialsService,
-        LocaleService,
-        LocalizationService,
+        CredentialsService
     ],
 
     bootstrap: [

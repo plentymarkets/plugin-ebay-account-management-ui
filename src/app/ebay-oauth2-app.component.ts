@@ -1,46 +1,52 @@
 import { Component, ChangeDetectionStrategy, ViewContainerRef, ViewChild } from '@angular/core';
-import { Locale } from 'angular2localization';
-import { LocaleService } from "angular2localization/angular2localization";
-import { LocalizationService } from "angular2localization/angular2localization";
+import {
+    LocaleService,
+    Translation,
+    TranslationService
+} from 'angular-l10n';
 
 @Component({
     selector: 'ebay-oauth2-app',
     template: require('./ebay-oauth2-app.component.html'),
-    styles: [require('./ebay-oauth2-app.component.scss').toString()],
+    styles: [require('./ebay-oauth2-app.component.scss')],
     changeDetection: ChangeDetectionStrategy.Default
 })
 
-export class EbayOAuth2AppComponent extends Locale {
+export class EbayOAuth2AppComponent extends Translation {
 
     private _viewContainerReference:ViewContainerRef;
 
-    constructor(locale:LocaleService,
-                localization:LocalizationService,
+    constructor(public locale:LocaleService,
+                public translation:TranslationService,
                 private _viewContainerRef:ViewContainerRef,
     )
     {
-        super(locale, localization);
+        super(translation);
 
         this._viewContainerReference = _viewContainerRef;
 
         // definitions for i18n
         if(process.env.ENV === 'production')
         {
-            this.localization.translationProvider('assets/lang/locale_');
+            this.translation.addConfiguration().addProvider('assets/lang/locale_');
         }
         else
         {
-            this.localization.translationProvider('src/app/assets/lang/locale_');
+            this.translation.addConfiguration().addProvider('src/app/assets/lang/locale_');
         }
 
-        this.locale.addLanguage('de');
-        this.locale.addLanguage('en');
-        this.locale.definePreferredLocale('en', 'EN', 30); //default language is en
+        this.locale.addConfiguration()
+            .addLanguages(['de',
+                'en'])
+            .setCookieExpiration(30)
+            .defineDefaultLocale('en', 'EN');
 
         let langInLocalStorage:string = localStorage.getItem('plentymarkets_lang_') || 'de';
 
-        this.locale.setCurrentLocale(langInLocalStorage, langInLocalStorage.toUpperCase());
-        this.localization.updateTranslation();
+        this.locale.setCurrentLanguage(langInLocalStorage);
+
+        this.locale.init();
+        this.translation.init();
     }
 
 

@@ -1,7 +1,8 @@
 import { Component, OnInit, forwardRef, Inject, ViewChild } from '@angular/core';
-import { Locale } from 'angular2localization/angular2localization';
-import { LocaleService} from 'angular2localization/angular2localization';
-import { LocalizationService} from 'angular2localization/angular2localization';
+import {
+    Translation,
+    TranslationService
+} from 'angular-l10n';
 import { CredentialsData } from './data/credentials-data';
 import { CredentialsService } from './service/credentials.service';
 import { AuthenticationService } from './service/authentication.service';
@@ -18,7 +19,7 @@ import DateTimeFormat = Intl.DateTimeFormat;
     styles: [require('./oauth2.component.scss').toString()]
 })
 
-export class OAuth2Component extends Locale implements OnInit
+export class OAuth2Component extends Translation implements OnInit
 {
     @ViewChild('removeCredentialsConfirmationOverlay') public removeCredentialsConfirmationOverlay:TerraOverlayComponent;
 
@@ -34,11 +35,10 @@ export class OAuth2Component extends Locale implements OnInit
         private credentialService:CredentialsService,
         private authenticationService:AuthenticationService,
         @Inject(forwardRef(() => EbayOAuth2AppComponent)) private ebayOAuth2AppComponent:EbayOAuth2AppComponent,
-        locale:LocaleService,
-        localization:LocalizationService
+        public translation:TranslationService
     )
     {
-        super(locale,localization);
+        super(translation);
 
         this.initCredentialsInfoboxes();
     }
@@ -99,7 +99,7 @@ export class OAuth2Component extends Locale implements OnInit
                 this.ebayOAuth2AppComponent.isLoading = false;
             },
             error => {
-                this.ebayOAuth2AppComponent.callStatusEvent(this.localization.translate('errorLoadCredentials') + ': ' + error.statusText, 'danger');
+                this.ebayOAuth2AppComponent.callStatusEvent(this.translation.translate('errorLoadCredentials') + ': ' + error.statusText, 'danger');
                 this.ebayOAuth2AppComponent.isLoading = false;
                 this.setLoading(false);
             }
@@ -130,7 +130,7 @@ export class OAuth2Component extends Locale implements OnInit
                 }, 200);
             },
             error => {
-                this.ebayOAuth2AppComponent.callStatusEvent(this.localization.translate('errorAuthentication') + ': ' + error.statusText, 'danger');
+                this.ebayOAuth2AppComponent.callStatusEvent(this.translation.translate('errorAuthentication') + ': ' + error.statusText, 'danger');
                 this.ebayOAuth2AppComponent.isLoading = false;
                 this.setLoading(false);
             }
@@ -145,11 +145,11 @@ export class OAuth2Component extends Locale implements OnInit
             response => {
                 this.toggleEditMode(infoBoxId);
 
-                this.ebayOAuth2AppComponent.callStatusEvent(this.localization.translate('successSaveCredentials'), 'success');
+                this.ebayOAuth2AppComponent.callStatusEvent(this.translation.translate('successSaveCredentials'), 'success');
                 this.setLoading(false);
             },
             error => {
-                this.ebayOAuth2AppComponent.callStatusEvent(this.localization.translate('errorSaveCredentials') + ': ' + error.statusText, 'danger');
+                this.ebayOAuth2AppComponent.callStatusEvent(this.translation.translate('errorSaveCredentials') + ': ' + error.statusText, 'danger');
                 this.ebayOAuth2AppComponent.isLoading = false;
                 this.setLoading(false);
             }
@@ -173,17 +173,17 @@ export class OAuth2Component extends Locale implements OnInit
                 {
                     this.initCredentialsInfoboxes();
 
-                    this.ebayOAuth2AppComponent.callStatusEvent(this.localization.translate('successRemoveCredentials'), 'success');
+                    this.ebayOAuth2AppComponent.callStatusEvent(this.translation.translate('successRemoveCredentials'), 'success');
                 }
                 else
                 {
-                    this.ebayOAuth2AppComponent.callStatusEvent(this.localization.translate('errorRemoveCredentials'), 'info');
+                    this.ebayOAuth2AppComponent.callStatusEvent(this.translation.translate('errorRemoveCredentials'), 'info');
                 }
 
                 this.setLoading(false);
             },
             error => {
-                this.ebayOAuth2AppComponent.callStatusEvent(this.localization.translate('errorRemoveCredentials') + ': ' + error.statusText, 'danger');
+                this.ebayOAuth2AppComponent.callStatusEvent(this.translation.translate('errorRemoveCredentials') + ': ' + error.statusText, 'danger');
                 this.ebayOAuth2AppComponent.isLoading = false;
                 this.setLoading(false);
             }
