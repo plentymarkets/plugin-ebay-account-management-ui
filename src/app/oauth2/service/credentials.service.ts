@@ -28,16 +28,16 @@ export class CredentialsService extends TerraBaseService
         );
     }
 
-    public save(credentialsId:number, credentialsData:any):Observable<CredentialsData>
+    public save(credentials:CredentialsData):Observable<CredentialsData>
     {
         let url: string;
 
         this.setAuthorization();
 
-        url = this.url + credentialsId;
+        url = this.url + credentials.id;
 
         return this.mapRequest(
-            this.http.put(url, credentialsData, {headers: this.headers})
+            this.http.put(url, credentials, {headers: this.headers})
         );
     }
 

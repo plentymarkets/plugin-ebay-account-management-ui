@@ -1,90 +1,84 @@
 <!-- TOOLBAR -->
 <terra-base-toolbar>
-    <div class="btn-group" role="group">
-        <terra-button
-                inputIcon="icon-plugin_productive icon_dist_top"
-                inputTooltipText="{{'addCredentialsProduction' | translate:lang}}"
-                inputTooltipPlacement="bottom"
-                (outputClicked)="openAuthenticationPopup('production')">
-        </terra-button>
-        <terra-button
-                inputIcon="icon-debug icon_dist_top"
-                inputTooltipText="{{'addCredentialsSandbox' | translate:lang}}"
-                inputTooltipPlacement="bottom"
-                (outputClicked)="openAuthenticationPopup('sandbox')">
-        </terra-button>
-    </div>
+	<div class="btn-group" role="group">
+		<terra-button
+				[inputIcon]="'icon-plugin_productive'"
+				[inputTooltipText]="'addCredentialsProduction' | translate:lang"
+				[inputTooltipPlacement]="'bottom'"
+				(outputClicked)="openAuthenticationPopup('production')">
+		</terra-button>
+		<terra-button
+				[inputIcon]="'icon-debug'"
+				[inputTooltipText]="'addCredentialsSandbox' | translate:lang"
+				[inputTooltipPlacement]="'bottom'"
+				(outputClicked)="openAuthenticationPopup('sandbox')">
+		</terra-button>
+	</div>
 </terra-base-toolbar>
 
-<!-- CONTENT -->
 <div class="container-fluid">
-    <div class="row">
-        <!-- CREDENTIALS INFOBOXES -->
-        <ng-template ngFor let-credentials let-infoBoxId="index" [ngForOf]="credentialsList">
-            <div class="col-xs-12 col-md-6 col-lg-3">
-                <terra-info-box id="infoBox{{infoBoxId}}">
-                    <div body>
-                        <div id="textInput{{infoBoxId}}" [hidden]="true">
-                            <terra-text-input
-                                    inputName="{{'account' | translate:lang}}"
-                                    [(ngModel)]="credentials.data.userId">
-                            </terra-text-input>
-                        </div>
+	<div class="row">
+		<ng-template ngFor let-credentials [ngForOf]="credentialsList">
+			<div class="col-xs-12 col-md-6 col-lg-3">
+				<terra-info-box>
+					<div body>
+						<terra-text-input
+								[hidden]="!credentials.editMode"
+								[inputName]="'account' | translate:lang"
+								[(ngModel)]="credentials.data.userId">
+						</terra-text-input>
 
-                        <span id="label{{infoBoxId}}" [hidden]="false">
+						<span [hidden]="credentials.editMode">
                             <b>{{'account' | translate:lang}}:</b> {{credentials.data.userId}}<br>
                         </span>
 
-                        <b>{{'environment' | translate:lang}}:</b> {{credentials.environment | translate:lang}}<br>
-                        <b>{{'status' | translate:lang}}:</b> {{credentials.status | translate:lang}}<br>
-                        <b>{{'expiration' | translate:lang}}:</b> {{credentials.data.refreshTokenExpiration}}<br>
-                        <b>{{'createdAt' | translate:lang}}:</b> {{credentials.createdAt | date: 'yyyy-mm-dd H:mm:ss'}}
-                    </div>
-                    <div buttons>
-                        <terra-button
-                                id="editBtn{{infoBoxId}}"
+						<b>{{'environment' | translate:lang}}:</b> {{credentials.environment | translate:lang}}<br>
+						<b>{{'status' | translate:lang}}:</b> {{credentials.status | translate:lang}}<br>
+						<b>{{'expiration' | translate:lang}}:</b> {{credentials.data.refreshTokenExpiration}}<br>
+						<b>{{'createdAt' | translate:lang}}:</b> {{credentials.createdAt | date: 'yyyy-mm-dd H:mm:ss'}}
+					</div>
+					<div buttons>
+						<terra-button
 								[inputIcon]="'icon-edit'"
-                                inputTooltipText="{{'edit' | translate:lang}}"
+								[inputTooltipText]="'edit' | translate:lang"
 								[inputTooltipPlacement]="'bottom'"
-                                [hidden]="false"
-                                (outputClicked)="toggleEditMode(infoBoxId)">
-                        </terra-button>
-                        <terra-button
-                                id="saveBtn{{infoBoxId}}"
-                                inputIcon="icon-save"
-                                inputTooltipText="{{'save' | translate:lang}}"
-                                inputTooltipPlacement="bottom"
-                                [hidden]="true"
-                                (outputClicked)="saveCredentials(infoBoxId, credentials)">
-                        </terra-button>
-                        <terra-button
-                                inputIcon="icon-refresh"
-                                inputTooltipText="{{'refresh' | translate:lang}}"
-                                inputTooltipPlacement="bottom"
-                                (outputClicked)="refreshCredentialsToken(credentials)">
-                        </terra-button>
-                        <terra-button
-                                inputIcon="icon-delete"
-                                inputTooltipText="{{'remove' | translate:lang}}"
-                                inputTooltipPlacement="bottom"
-                                (outputClicked)="showRemoveCredentialsOverlay(credentials)">
-                        </terra-button>
-                    </div>
-                </terra-info-box>
-            </div>
-        </ng-template>
-    </div>
+								[hidden]="credentials.editMode"
+								(outputClicked)="credentials.editMode = true">
+						</terra-button>
+						<terra-button
+								[inputIcon]="'icon-save'"
+								[inputTooltipText]="'save' | translate:lang"
+								[inputTooltipPlacement]="'bottom'"
+								[hidden]="!credentials.editMode"
+								(outputClicked)="saveCredentials(credentials)">
+						</terra-button>
+						<terra-button
+								[inputIcon]="'icon-refresh'"
+								[inputTooltipText]="'refresh' | translate:lang"
+								[inputTooltipPlacement]="'bottom'"
+								(outputClicked)="refreshCredentialsToken(credentials)">
+						</terra-button>
+						<terra-button
+								[inputIcon]="'icon-delete'"
+								[inputTooltipText]="'remove' | translate:lang"
+								[inputTooltipPlacement]="'bottom'"
+								(outputClicked)="showRemoveCredentialsOverlay(credentials)">
+						</terra-button>
+					</div>
+				</terra-info-box>
+			</div>
+		</ng-template>
+	</div>
 </div>
 
-<!-- OVERLAYS -->
 <terra-overlay
-        #removeCredentialsConfirmationOverlay
-        inputOverlayTitle="{{'removeAccount' | translate:lang}}"
-        [inputPrimaryButtonInterface]="removeCredentialsButtonInterface"
-        [inputSecondaryButtonInterface]="cancelRemoveCredentialsButtonInterface"
-        [inputIsStatic]="true"
-        [inputIsSmall]="true">
-    <div>
-        {{'removeConfirmationMessage' | translate:lang}} ({{credentialsUserIdToBeDeleted}})
-    </div>
+		#removeCredentialsConfirmationOverlay
+		[inputOverlayTitle]="'removeAccount' | translate:lang"
+		[inputPrimaryButtonInterface]="removeCredentialsButtonInterface"
+		[inputSecondaryButtonInterface]="cancelRemoveCredentialsButtonInterface"
+		[inputIsStatic]="true"
+		[inputIsSmall]="true">
+	<div>
+		{{'removeConfirmationMessage' | translate:lang}} ({{credentialsUserIdToBeDeleted}})
+	</div>
 </terra-overlay>

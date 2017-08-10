@@ -92,6 +92,7 @@ export class OAuth2Component extends Translation implements OnInit
                         data: data.data,
                         market: data.market,
                         createdAt: data.createdAt,
+                        editMode: false,
                     });
                 }
 
@@ -137,13 +138,13 @@ export class OAuth2Component extends Translation implements OnInit
         );
     }
 
-    private saveCredentials(infoBoxId:number, credentials:CredentialsData):void
+    private saveCredentials(credentials:CredentialsData):void
     {
         this.setLoading(true);
 
-        this.credentialService.save(credentials.id, credentials).subscribe(
+        this.credentialService.save(credentials).subscribe(
             response => {
-                this.toggleEditMode(infoBoxId);
+                credentials.editMode = false;
 
                 this.ebayOAuth2AppComponent.callStatusEvent(this.translation.translate('successSaveCredentials'), 'success');
                 this.setLoading(false);
@@ -192,21 +193,6 @@ export class OAuth2Component extends Translation implements OnInit
         this.credentialsUserIdToBeDeleted = '';
         this.credentialsToBeDeleted = null;
     }
-
-    private toggleEditMode(id:number)
-    {
-        this.toggleHidden(document.getElementById('textInput' + id));
-        this.toggleHidden(document.getElementById('label' + id));
-        this.toggleHidden(document.getElementById('editBtn' + id));
-        this.toggleHidden(document.getElementById('saveBtn' + id));
-    }
-
-    private toggleHidden(element:any)
-    {
-        element.hidden = !element.hidden;
-    }
-
-
 
     public get cancelRemoveCredentialsButtonInterface():TerraOverlayButtonInterface
     {

@@ -6,4 +6,5 @@ export class CredentialsData
     data:any;
     market:string;
     createdAt:string;
+    editMode:boolean;
 }
