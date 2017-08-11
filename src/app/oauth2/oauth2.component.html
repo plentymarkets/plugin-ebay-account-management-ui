@@ -21,7 +21,7 @@
 		<ng-template ngFor let-credentials [ngForOf]="credentialsList">
 			<div class="col-xs-12 col-md-6 col-lg-3">
 				<terra-info-box>
-					<div body>
+					<span body>
 						<terra-text-input
 								[hidden]="!credentials.editMode"
 								[inputName]="'account' | translate:lang"
@@ -36,7 +36,7 @@
 						<b>{{'status' | translate:lang}}:</b> {{credentials.status | translate:lang}}<br>
 						<b>{{'expiration' | translate:lang}}:</b> {{credentials.data.refreshTokenExpiration}}<br>
 						<b>{{'createdAt' | translate:lang}}:</b> {{credentials.createdAt | date: 'yyyy-mm-dd H:mm:ss'}}
-					</div>
+					</span>
 					<div buttons>
 						<terra-button
 								[inputIcon]="'icon-edit'"

@@ -1,4 +1,7 @@
-.loading-bar {
-  top: 0px !important;
+:host /deep/
+.btn-group-vertical
+{
+  .btn-handler {
+    display: block !important;
+  }
 }
-
