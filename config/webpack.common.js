@@ -2,8 +2,6 @@ const webpack = require('webpack');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const OccurrenceOrderPlugin = require('webpack/lib/optimize/OccurrenceOrderPlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
-const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
@@ -100,16 +98,17 @@ module.exports = function (options) {
         },
         plugins: [
 
-            new CommonsChunkPlugin({
+            // Workaround for angular/angular#11580
+            new webpack.ContextReplacementPlugin(
+                /angular(\\|\/)core(\\|\/)@angular/,
+                helpers.root('./src'), // location of your src
+                {} // a map of your routes
+            ),
+
+            new webpack.optimize.CommonsChunkPlugin({
                 name: ['app', 'vendor', 'polyfills'],
                 minChunks: Infinity
             }),
-
-            new ContextReplacementPlugin(
-                // The (\\|\/) piece accounts for path separators in *nix and Windows
-                /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-                helpers.root('./src') // location of your src
-            ),
 
             new HtmlWebpackPlugin({
                 template: 'src/index.html',
@@ -120,9 +119,9 @@ module.exports = function (options) {
             new OccurrenceOrderPlugin(true),
 
             new ProvidePlugin({
-                // $: "jquery",
-                // jQuery: "jquery",
-                // "window.jQuery": "jquery",
+                $: "jquery",
+                jQuery: "jquery",
+                "window.jQuery": "jquery",
                 // Tether: "tether",
                 // "window.Tether": "tether",
                 Alert: "exports-loader?Alert!bootstrap/js/dist/alert",
