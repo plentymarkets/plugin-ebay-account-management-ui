@@ -1,4 +1,4 @@
-export class CredentialsData
+export interface CredentialInterface
 {
     id:number;
     environment:string;
@@ -6,5 +6,5 @@ export class CredentialsData
     data:any;
     market:string;
     createdAt:string;
-    editMode:boolean;
+    updatedAt:string;
 }

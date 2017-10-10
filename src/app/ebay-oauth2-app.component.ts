@@ -1,62 +1,44 @@
-import { Component, ChangeDetectionStrategy, ViewContainerRef, ViewChild } from '@angular/core';
 import {
-    LocaleService,
+    Component,
+    ChangeDetectionStrategy
+} from '@angular/core';
+import {
     Translation,
     TranslationService
 } from 'angular-l10n';
+import { LoadingConfig } from './core/config/loading.config';
+import { AlertConfig } from './core/config/alert.config';
 
 @Component({
-    selector: 'ebay-oauth2-app',
-    template: require('./ebay-oauth2-app.component.html'),
-    styles: [require('./ebay-oauth2-app.component.scss')],
+    selector:        'ebay-oauth2-app',
+    template:        require('./ebay-oauth2-app.component.html'),
+    styles:          [require('./ebay-oauth2-app.component.scss')],
     changeDetection: ChangeDetectionStrategy.Default
 })
 
-export class EbayOAuth2AppComponent extends Translation {
+export class EbayOAuth2AppComponent extends Translation
+{
+    private _action:any;
 
-    private _viewContainerReference:ViewContainerRef;
-
-    constructor(public locale:LocaleService,
-                public translation:TranslationService,
-                private _viewContainerRef:ViewContainerRef,
-    )
+    constructor(public translation:TranslationService,
+                private _loadingConfig:LoadingConfig,
+                private _alertConfig:AlertConfig)
     {
         super(translation);
 
-        this._viewContainerReference = _viewContainerRef;
+        this._action = this.getUrlVars()['action'];
 
-        // definitions for i18n
-        if(process.env.ENV === 'production')
-        {
-            this.translation.addConfiguration().addProvider('assets/lang/locale_');
-        }
-        else
-        {
-            this.translation.addConfiguration().addProvider('src/app/assets/lang/locale_');
-        }
-
-        this.locale.addConfiguration()
-            .addLanguages(['de',
-                'en'])
-            .setCookieExpiration(30)
-            .defineDefaultLocale('en', 'EN');
-
-        let langInLocalStorage:string = localStorage.getItem('plentymarkets_lang_') || 'de';
-
-        this.locale.setCurrentLanguage(langInLocalStorage);
-
-        this.locale.init();
-        this.translation.init();
+        this._alertConfig.callStatusEvent = this.callStatusEvent;
+        this._loadingConfig.callLoadingEvent = this.callLoadingEvent;
     }
 
 
-    private action:any = this.getUrlVars()['action'];
-    private _isLoading = true;
+    private getUrlVars()
+    {
+        let vars = {};
 
-    private getUrlVars() {
-        var vars = {};
-
-        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (substring: string, ...args: any[]): string {
+        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(substring:string, ...args:any[]):string
+        {
             vars[args[0]] = args[1];
             return;
         });
@@ -64,24 +46,15 @@ export class EbayOAuth2AppComponent extends Translation {
         return vars;
     }
 
-    public reload() {
+    public reload()
+    {
         location.reload();
-    }
-
-    public get isLoading():boolean
-    {
-        return this._isLoading;
-    }
-
-    public set isLoading(v:boolean)
-    {
-        this._isLoading = v;
     }
 
     public callStatusEvent(message, type)
     {
         let detail = {
-            type: type,
+            type:    type,
             message: message
         };
 

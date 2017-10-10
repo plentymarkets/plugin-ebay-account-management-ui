@@ -1,20 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { TerraLoadingSpinnerService, TerraBaseService } from '@plentymarkets/terra-components';
+import {
+    TerraLoadingSpinnerService,
+    TerraBaseService
+} from '@plentymarkets/terra-components';
 import { Observable } from 'rxjs';
-import { CredentialsData } from '../data/credentials-data';
+import { CredentialsInterface } from './data/credentials.interface';
+import { CredentialInterface } from './data/credential.interface';
 
 @Injectable()
 export class CredentialsService extends TerraBaseService
 {
-    private bearer = "";
+    private bearer:string;
 
     constructor(loadingBarService:TerraLoadingSpinnerService, http:Http)
     {
         super(loadingBarService, http, '/rest/markets/credentials/');
+
+        if(process.env.ENV !== 'production')
+        {
+            this.bearer = process.env.TOKEN;
+            this.url = process.env.BASE_URL + this.url;
+        }
     }
 
-    public search():Observable<CredentialsData>
+    public search():Observable<CredentialsInterface>
     {
         let url:string;
 
@@ -28,9 +38,9 @@ export class CredentialsService extends TerraBaseService
         );
     }
 
-    public save(credentials:CredentialsData):Observable<CredentialsData>
+    public save(credentials:CredentialInterface):Observable<CredentialInterface>
     {
-        let url: string;
+        let url:string;
 
         this.setAuthorization();
 
@@ -41,7 +51,7 @@ export class CredentialsService extends TerraBaseService
         );
     }
 
-    public remove(id:number):Observable<CredentialsData>
+    public remove(id:number):Observable<any>
     {
         let url:string;
 

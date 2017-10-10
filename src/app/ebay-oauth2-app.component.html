@@ -1,13 +1,4 @@
-<div class="loading" [hidden]="!isLoading">
-	<div class="icon-referrer_backend loading-backend"></div>
-	<div class="loading-text">Loading
-		<span class="dot-one">.</span>
-		<span class="dot-two">.</span>
-		<span class="dot-three">.</span>
-	</div>
-</div>
-
-<div *ngIf="action == 'oauth2'" [hidden]="isLoading">
+<div *ngIf="_action == 'oauth2'">
 	<oauth2></oauth2>
 </div>
 
