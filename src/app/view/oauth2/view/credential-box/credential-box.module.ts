@@ -4,7 +4,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TerraComponentsModule } from '@plentymarkets/terra-components/app/terra-components.module';
-import { TranslationModule } from "angular-l10n";
+import {
+    LocalizationModule,
+    TranslationModule
+} from "angular-l10n";
 import { CredentialsService } from '../../../../core/rest/markets/credentials/credentials.service';
 import { FormsModule } from '@angular/forms';
 import { CredentialBoxComponent } from './credential-box.component';
@@ -13,6 +16,7 @@ import { CredentialBoxComponent } from './credential-box.component';
     imports:      [
         CommonModule,
         TranslationModule,
+        LocalizationModule,
         FormsModule,
         TerraComponentsModule.forRoot(),
     ],

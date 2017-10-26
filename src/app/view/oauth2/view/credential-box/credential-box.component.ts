@@ -5,6 +5,8 @@ import {
     ViewChild
 } from '@angular/core';
 import {
+    LocaleService,
+    Localization,
     Translation,
     TranslationService
 } from 'angular-l10n';
@@ -24,7 +26,7 @@ import { CredentialsConfig } from '../../config/credentials.config';
     styles:   [require('./credential-box.component.scss').toString()]
 })
 
-export class CredentialBoxComponent extends Translation implements OnInit
+export class CredentialBoxComponent extends Localization implements OnInit
 {
     @Input('credential') credential:CredentialInterface;
     @ViewChild('overlay') public overlay:TerraOverlayComponent;
@@ -34,13 +36,17 @@ export class CredentialBoxComponent extends Translation implements OnInit
     
     private _editModeActive:boolean;
 
+    private _credentialCreatedAt:Date;
+    private _credentialRefreshTokenExpiration:Date;
+
     constructor(private _credentialService:CredentialsService,
                 public translation:TranslationService,
+                public localeService:LocaleService,
                 private _loadingConfig:LoadingConfig,
                 private _alertConfig:AlertConfig,
                 private _credentialsConfig:CredentialsConfig)
     {
-        super(translation);
+        super(localeService, translation);
         
         this._editModeActive = false;
     }
@@ -60,6 +66,10 @@ export class CredentialBoxComponent extends Translation implements OnInit
             isDisabled:    false,
             clickFunction: () => this.onRemoveCredentialsBtnClick()
         };
+        
+        this._credentialCreatedAt = new Date(this.credential.createdAt);
+        
+        this._credentialRefreshTokenExpiration = new Date(this.credential.data.refreshTokenExpiration);
     }
 
     private onRefreshCredentialsTokenBtnClick():void
