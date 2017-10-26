@@ -138,11 +138,7 @@ module.exports = function (options) {
             }),
 
             new CopyWebpackPlugin([
-                {from: 'src/app/assets', to: 'assets'},
-                {
-                    from: 'node_modules/@plentymarkets/terra-components/app/assets/',
-                    to: 'node_modules/@plentymarkets/terra-components/app/assets/'
-                }
+                {from: 'src/app/assets', to: 'assets'}
             ]),
 
             new LoaderOptionsPlugin({

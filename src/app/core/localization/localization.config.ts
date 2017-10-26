@@ -19,15 +19,13 @@ export class LocalizationConfig
             let deploymentTerraHash = (<any>window).deploymentTerraHash;
             this.translation
                 .addConfiguration()
-                .addProvider('assets/lang/locale_')
-                .addProvider('node_modules/@plentymarkets/terra-components/app/assets/lang/locale-');
+                .addProvider('assets/lang/locale_');
         }
         else
         {
             this.translation
                 .addConfiguration()
-                .addProvider('src/app/assets/lang/locale_')
-                .addProvider('node_modules/@plentymarkets/terra-components/app/assets/lang/locale-');
+                .addProvider('src/app/assets/lang/locale_');
         }
 
         this.locale.addConfiguration()
