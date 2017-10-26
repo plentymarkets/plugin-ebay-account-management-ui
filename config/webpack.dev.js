@@ -37,7 +37,9 @@ module.exports = function (options) {
                 'process.env': {
                     'ENV': JSON.stringify(METADATA.ENV),
                     'NODE_ENV': JSON.stringify(METADATA.ENV),
-                    'HMR': METADATA.HMR
+                    'HMR': METADATA.HMR,
+                    'TOKEN': JSON.stringify('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImM0ZWY4YTVlYWRkOGMzMDU0ZmQ4MDlmZjYwZmNmMTc5OGM2YmY3NjUzNzU2Y2IyODQyNjhhMmNiZWJkZTE0NWFkMGE2MmVhMzFlNmQ5OGY1In0.eyJhdWQiOiIxIiwianRpIjoiYzRlZjhhNWVhZGQ4YzMwNTRmZDgwOWZmNjBmY2YxNzk4YzZiZjc2NTM3NTZjYjI4NDI2OGEyY2JlYmRlMTQ1YWQwYTYyZWEzMWU2ZDk4ZjUiLCJpYXQiOjE1MDc2NjUxODUsIm5iZiI6MTUwNzY2NTE4NSwiZXhwIjoxNTA3NzUxNTg1LCJzdWIiOiIzIiwic2NvcGVzIjpbIioiXX0.kNqmSoU56w3aZvoMOvEevqCn7BJRWkN3k-RaP1O0Uqhu7gBjxyxZUt64XoNuhhcncpRttXM7QwltO-kmdbRn1-4ytXKQr0awNzg8pm4LLdNp3y_s3fsx_W7Y-3shQ10iRRZaN-k7gJnTRIHemKiO00iDFXAiAaFClz1k5c_QcrMbIHmrQQfFrxpnITbdODqpBJgC-PUIM5uYCvsBMuZ85bCB0RmJIbXoKHTTaOJt_abSXqnUWFdtGzkxCqMfPacU1cLX17eoUCor9LhLZ4BUMjPtkKmO4OnKVAwaI6Kmt375I9trGLIYi1DxG3nDkDsSHa5OZLuIj13gQRMIBPPCLIUa8gsnUS-eq7cU5ifHI0QxeGJBgkAL4AGEBl2wLwC3-tim64U2CufbaUteMN_lBxTbKE4aTN0SbmxxcpAmBDXDi3PD3uL-f_DNrPRBsef7whjXjj719Ueyppcg_WVvBt2QWXqhlowhiYBIeTG8XYac5D-W7Z-Y1QLzYjzSpkuZW3za4SYRM_tkzUy1kwye7HKy4NzdXbRN4ALk6bCCc_Au13gEyE1kMX1lI0rSiyzB9XfTEXq8suVNf8dfltgKHVbdMmFsoRyOVrUJO8eiF6E73SdQEQOMvRqDWaNiM_z9xhxs1TFSaUxAJLfoWvlp9p1xniiKBxp5L27zwGiKEwI'),
+                    'BASE_URL': JSON.stringify('http://master.login.plentymarkets.com')
                 }
             })
         ],
