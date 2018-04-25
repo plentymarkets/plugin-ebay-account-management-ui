@@ -5,9 +5,9 @@ import {
     ViewChild
 } from '@angular/core';
 import {
+    DefaultLocale, Language,
     LocaleService,
     Localization,
-    Translation,
     TranslationService
 } from 'angular-l10n';
 import { CredentialsService } from '../../../../core/rest/markets/credentials/credentials.service';
@@ -30,6 +30,12 @@ export class CredentialBoxComponent extends Localization implements OnInit
 {
     @Input('credential') credential:CredentialInterface;
     @ViewChild('overlay') public overlay:TerraOverlayComponent;
+    
+    @Language()
+    public lang:string;
+    
+    @DefaultLocale()
+    public defaultLocale:string;
 
     private _cancelBtn:TerraOverlayButtonInterface;
     private _removeBtn:TerraOverlayButtonInterface;
@@ -46,7 +52,7 @@ export class CredentialBoxComponent extends Localization implements OnInit
                 private _alertConfig:AlertConfig,
                 private _credentialsConfig:CredentialsConfig)
     {
-        super(localeService, translation);
+        super();
         
         this._editModeActive = false;
     }

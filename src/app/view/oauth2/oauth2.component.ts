@@ -4,7 +4,7 @@ import {
     ViewChild
 } from '@angular/core';
 import {
-    Translation,
+    Language,
     TranslationService
 } from 'angular-l10n';
 import { CredentialsService } from '../../core/rest/markets/credentials/credentials.service';
@@ -21,9 +21,12 @@ import { CredentialsConfig } from './config/credentials.config';
     styles:   [require('./oauth2.component.scss').toString()]
 })
 
-export class OAuth2Component extends Translation implements OnInit
+export class OAuth2Component implements OnInit
 {
     @ViewChild('removeCredentialsConfirmationOverlay') public removeCredentialsConfirmationOverlay:TerraOverlayComponent;
+
+    @Language()
+    public lang:string;
 
     private _credentialsList:Array<CredentialInterface>;
 
@@ -34,8 +37,6 @@ export class OAuth2Component extends Translation implements OnInit
                 private _alertConfig:AlertConfig,
                 private _credentialsConfig:CredentialsConfig)
     {
-        super(translation);
-
         this.initCredentialsInfoBoxes();
     }
 

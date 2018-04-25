@@ -16,7 +16,7 @@ import { AlertConfig } from './core/config/alert.config';
     changeDetection: ChangeDetectionStrategy.Default
 })
 
-export class EbayOAuth2AppComponent extends Translation
+export class EbayOAuth2AppComponent
 {
     private _action:any;
 
@@ -24,8 +24,6 @@ export class EbayOAuth2AppComponent extends Translation
                 private _loadingConfig:LoadingConfig,
                 private _alertConfig:AlertConfig)
     {
-        super(translation);
-
         this._action = this.getUrlVars()['action'];
 
         this._alertConfig.callStatusEvent = this.callStatusEvent;
